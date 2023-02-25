@@ -1,0 +1,24 @@
+{
+  "name": "bugtrack_cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/A-alharbi9/bugTrack_cli.git"
+  },
+  "author": "A-alharbi9",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/A-alharbi9/bugTrack_cli/issues"
+  },
+  "homepage": "https://github.com/A-alharbi9/bugTrack_cli#readme",
+  "dependencies": {
+    "@octokit/core": "^4.2.0",
+    "cli-table": "^0.3.11",
+    "yargs": "^17.7.1"
+  }
+}
