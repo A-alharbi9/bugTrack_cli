@@ -1,19 +1,16 @@
 const yargs = require('yargs')(process.argv.slice(2));
-const { Octokit } = require('@octokit/core');
-const inquire = require('inquirer');
+const { choices } = require('yargs');
+const createTable = require('./createTable');
 const { githubRequest } = require('./githubRequest');
-
-const octokit = new Octokit();
 
 const getData = async (owner, repo, type) => {
   try {
     const res = await githubRequest(owner, repo, type);
 
-    res.data.map((issue) => {
-      console.log(issue.title);
-    });
+    if (res) {
+      console.log(createTable(res));
+    }
   } catch (error) {
-    console.error(error.status);
     console.error(error.message);
   }
 };
@@ -34,15 +31,20 @@ const args = yargs
         type: 'string',
       },
       type: {
-        describe: 'issues or pull requests',
+        describe: 'issue or pull request',
         type: 'string',
         default: 'issues',
       },
+      status: {
+        describe: 'issue or pull request status',
+        type: 'string',
+        default: 'open',
+      },
     },
     () => {
-      const { owner, repo, type } = yargs.argv;
+      const { owner, repo, type, status } = yargs.argv;
 
-      getData(owner, repo, type);
+      getData(owner, repo, type, status);
     }
   )
   .check((argv) => {
@@ -52,11 +54,15 @@ const args = yargs
       return argv;
     }
   })
-  .alias('ow', 'owner')
-  .alias('re', 'repo')
+  .choices('type', ['issues', 'pulls'])
+  .choices('status', ['open', 'closed'])
   .example(
-    'node index.js track --ow ownerName --repo repoName',
+    'node index.js track --ow ownerName --repo repoName --type type --status status',
     'track project issues'
   )
+  .alias('ow', 'owner')
+  .alias('re', 'repo')
+  .alias('t', 'type')
+  .alias('st', 'status')
   .alias('h', 'help')
   .help('h').argv;
