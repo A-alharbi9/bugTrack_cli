@@ -18,7 +18,10 @@
   "homepage": "https://github.com/A-alharbi9/bugTrack_cli#readme",
   "dependencies": {
     "@octokit/core": "^4.2.0",
+    "chalk": "^4.1.2",
     "cli-table": "^0.3.11",
+    "inquirer": "^8.2.5",
+    "ora": "^5.4.1",
     "yargs": "^17.7.1"
   }
 }
